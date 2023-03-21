@@ -1,0 +1,57 @@
+[
+    {"id":1,
+    "title":"Tình cảm",
+    "film":{
+        "id":1,
+        "name":"Về nhà đi con",
+        "sc":7.1,
+        "description":"Về Nhà Đi Con là một câu chuyện trong gia đình có 4 người, ông bố Sơn và 3 chị em gái Huệ, Thư, Dương, mất mẹ từ nhỏ. Mỗi người một tính cách, trải qua nhiều biến cố riêng và chung, họ càng cảm thấy quý giá tình cảm cha con, chị em, càng cố gắng đem lại niềm vui, hạnh phúc cho người thân.",
+        "img":"https://toquoc.mediacdn.vn/thumb_w/640/2019/12/5/poster-phim-ve-nha-di-con-1575534082108391788397.jpg",
+        "comment":[
+            {"id":1,"userid":1,"comment":"Phim khá hay"},
+            {"id":2,"userid":2,"comment":"Phim rất hay"},
+            {"id":3,"userid":3,"comment":"Phim không hay"},
+            {"id":4,"userid":4,"comment":"Phim chán"}
+        ]
+    }},
+    {"id":2,
+    "title":"Phiêu lưu",
+    "film":{
+        "id":2,
+        "name":"Vua Hải Tặc",
+        "sc":8.9,
+        "description":"Đảo Hải Tặc - One Piece là chuyện về cậu bé Monkey D. Luffy do ăn nhầm Trái Ác Quỷ, bị biến thành người cao su và sẽ không bao giờ biết bơi. 10 năm sau sự việc đó, cậu rời quê mình và kiếm đủ 10 thành viên để thành một băng hải tặc, biệt hiệu Hải tặc Mũ Rơm. Khi đó của phiêu lưu tìm kiếm kho báu One Piece bắt đầu. Trong cuộc phiêu lưu tìm kiếm One Piece, băng Hải tặc mũ rơm phải chiến đấu với nhiều băng hải tặc xấu khác cũng muốn độc chiếm One Piece và Hải quân của Chính phủ muốn diệt trừ hải tặc. Băng Hải tặc Mũ Rơm phải trải qua biết bao nhiêu khó khăn, không lùi bước với ước mơ 'Trở thành Vua Hải Tặc và chiếm được kho báu One Piece'.",
+        "img":"https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.mpapis.xyz%2Fposter%2Fdao-hai-tac-718.jpg%3F1679219568",
+        "comment":[
+            {"id":5,"userid":1,"comment":"Phim tệ"},
+            {"id":6,"userid":2,"comment":"Nhân vật không truyền cảm hứng"},
+            {"id":7,"userid":3,"comment":"Phim không hay"},
+            {"id":8,"userid":4,"comment":"Phim hay"}
+        ]
+    }},
+    {"id":3,
+    "title":"Kinh dị",
+    "film":{
+        "id":3,
+        "name":"Đoạt Hồn",
+        "sc":9.0,
+        "description":"Đoạt Hồn kể về bé Ái 8 tuổi bị trượt chân xuống sông và mất tích. Một tuần sau đó, cậu của Ái là một cảnh sát, tìm được xác Ái ở một vùng quê, và chứng kiến Ái ngồi bật dậy từ nhà xác. Anh ta mang Ái về nhà, nhưng không nói với bố mẹ Ái rằng lúc anh ta tìm thấy Ái đã chết. Nhiều sự việc kỳ lạ đã diễn ra ở gia đình họ Vương cho đến khi họ khám phá ra Ái đã bị đoạt hồn.",
+        "img":"https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.mpapis.xyz%2Fposter%2Fdoat-hon-7740.jpg%3F1581235808",
+        "comment":[
+            {"id":9,"userid":1,"comment":"Tuyệt vời"},
+            {"id":10,"userid":2,"comment":"Phim rất hay"},
+            {"id":11,"userid":3,"comment":"Phim không hay"},
+            {"id":12,"userid":4,"comment":"Phim chán"}
+        ]
+    }},
+    {"id":4,
+    "title":" Gia Đình - Học Đường",
+    "film":{
+        "id":4,
+        "name":"Hải Trình Của JESSICA",
+        "sc":9.0,
+        "description":"Hải Trình Của Jessica là câu chuyện theo đuổi ước mơ và đối mặt với nỗi sợ, một thiếu nữ người Úc ngoan cường quyết tâm trở thành người trẻ nhất đi thuyền một mình vòng quanh thế giới.",
+        "img":"https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.mpapis.xyz%2Fposter%2Fhai-trinh-cua-jessica-10960.jpg%3F1676107007",
+        "comment":[]
+    }}
+]
