@@ -38,3 +38,19 @@ textarea {
     padding: 10px 10px;
     width: 100%;
 }
+.rateAndScore {
+    margin-top: 5vh;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    margin-top: 20px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 5px;
+  }
+  .comment {
+    margin-top: 10vh;
+  }
