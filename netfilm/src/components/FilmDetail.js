@@ -13,7 +13,7 @@ const FilmDetail = (props) => {
   const comment = useRef();
   const [categorys, setCategorys] = useState(JSON.parse(data));
   const [listuser, setListuser] = useState(JSON.parse(users));
-
+  const [reaload, setReload] = useState();
   const cate = categorys.find((category) => {
     return category.film.find((fi) => fi.id == id) != undefined;
   });
@@ -45,8 +45,33 @@ const FilmDetail = (props) => {
         "Điểm đánh giá nằm trong đoạn [0,10]. Mời nhập lại !!",
         "error"
       );
+    } else if (cm == "") {
+      swal("Lỗi rồi :))", "Nhận xét trống kìa :33", "error");
     } else {
-      swal("Đánh giá thành công !!", "", "success");
+      var id = 0;
+      let check = false;
+      categorys.forEach((cate) => {
+        cate.film.forEach((fi) => {
+          id += fi.comment.length;
+        });
+      });
+      if (
+        film.comment != undefined &&
+        film.comment.find((cm) => cm.userid == iduser) != undefined
+      )
+        check = true;
+      const newComment = {
+        id: id++,
+        userid: iduser,
+        score: check ? null : sc,
+        comment: cm,
+      };
+      film.comment.unshift(newComment);
+      // cate.film.comment = [...film];
+      window.localStorage.setItem("data", JSON.stringify(categorys));
+      swal("Đánh giá thành công !!", "", "success").then(() =>
+        setReload(!reaload)
+      );
     }
   };
   return (
