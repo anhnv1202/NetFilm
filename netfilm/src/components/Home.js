@@ -36,23 +36,38 @@ const Home = () => {
               category != null &&
               category.film.map((film) => {
                 return (
-                  <div
-                    key={film.id}
-                    onClick={() => {
-                      handleOnClick(film.id);
-                    }}
-                    className="col-3"
-                  >
+                  <div key={film.id} className="col-3">
                     <img
                       src={film.img}
                       alt={film.name}
-                      style={{ width: "12vw", height: "16vw", margin: "auto" }}
+                      style={{
+                        width: "12vw",
+                        height: "16vw",
+                        margin: "auto",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        handleOnClick(film.id);
+                      }}
                     ></img>
-                    <h5>{film.name}</h5>
+                    <h5
+                      onClick={() => {
+                        handleOnClick(film.id);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {film.name}
+                    </h5>
                     <p>Năm: {film.year}</p>
                     <p>Loại: {category.title}</p>
                     <p>Điểm: {GetScore(film)}</p>
-                    <Button>Đánh giá</Button>
+                    <Button
+                      onClick={() => {
+                        handleOnClick(film.id);
+                      }}
+                    >
+                      Đánh giá
+                    </Button>
                   </div>
                 );
               })
