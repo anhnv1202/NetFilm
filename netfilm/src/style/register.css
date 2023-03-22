@@ -14,10 +14,11 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
+  background-color: #96D6FF;
 }
 
 .register h1 {
+  color: white;
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 1.5rem;
@@ -42,6 +43,7 @@ input[type="text"]::-webkit-input-placeholder {
 }
 
 .register #gender {
+  color: white;
   display: flex;
   width: 100%;
   margin-bottom: 20px;
@@ -49,13 +51,14 @@ input[type="text"]::-webkit-input-placeholder {
 }
 
 .register p {
+  color: white;
   margin-top: 0;
   margin-bottom: 20px;
   text-align: center;
 }
 
 .register p a {
-  color: rgb(0, 4, 255);
+  color: yellow;
   text-decoration: underline;
 }
 
@@ -67,7 +70,7 @@ input[type="text"]::-webkit-input-placeholder {
   padding: 10px;
   border: none;
   border-radius: 30px;
-  background-color: #f00;
+  background-color: rgb(0, 132, 255);
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
