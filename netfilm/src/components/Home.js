@@ -1,6 +1,6 @@
 import "../assest/home.css";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import data from "../data/alldata.json";
 import user from "../data/user.json";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import { Navbar, Nav, Button, Form, Container } from "react-bootstrap";
 
 const Home = () => {
   const [categorys, setCategorys] = useState(data);
-  const [users, setUsers] = useState(user);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
   const [filteredFilms, setFilteredFilms] = useState([]);
@@ -16,8 +15,16 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilm, setSelectedFilm] = useState(null);
   window.localStorage.setItem("data", JSON.stringify(categorys));
-  window.localStorage.setItem("users", JSON.stringify(users));
 
+  const [usersList, setUsersList] = useState(user);
+  const users = window.localStorage.getItem("users");
+  useEffect(() => {
+    if (users) {
+      window.localStorage.setItem("users", users);
+    } else {
+      window.localStorage.setItem("users", JSON.stringify(usersList));
+    }
+  }, [usersList]);
   const handleOnClick = (id) => {
     navigate(`../filmdetail/id/${id}/`);
   };

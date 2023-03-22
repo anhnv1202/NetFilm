@@ -6,6 +6,7 @@
 }
 
 .register form {
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,7 +64,7 @@ input[type="text"]::-webkit-input-placeholder {
 }
 
 .register p a:hover {
-  color: #c00;
+  color: orange;
 }
 .register .submit-btn {
   width: 100%;
