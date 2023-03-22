@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import user from "../data/user.json";
-import "../assest/register.css";
+import "../style/register.css";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,6 @@ const Register = () => {
       setUsersList(user);
     }
   }, [users]);
-  console.log(usersList);
   const handleSubmit = (event) => {
     event.preventDefault();
     const isDuplicateEmail = usersList.some((user) => user.email === email);
@@ -25,7 +24,7 @@ const Register = () => {
       swal({
         title: "Đăng nhập thất bại",
         text: "Tài khoản email này đã tồn tại, vui lòng sử dụng emal khác!",
-        icon: "Lỗi",
+        icon: "error",
         button: "OK",
       });
       return;
@@ -37,7 +36,7 @@ const Register = () => {
       return swal({
         title: "Đăng nhập",
         text: "Mật khẩu phải chứa ít nhất 8 ký tự bao gồm ít nhất 1 ký tự viết hoa, ít nhất 1 ký tự số",
-        icon: "Lỗi",
+        icon: "error",
         button: "OK",
       });
     }
@@ -45,7 +44,7 @@ const Register = () => {
     swal({
       title: "Đăng ký thành công",
       text: "Cảm ơn bạn đã đăng ký một tài khoản với chúng tôi!",
-      icon: "Thành công",
+      icon: "success",
       button: "OK",
     }).then(() => {
       const newUser = {
