@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import data from "../data/alldata.json";
 import user from "../data/user.json";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 const Home = () => {
   const [categorys, setCategorys] = useState(data);
-  const [users, setUsers] = useState(user);
+  const [usersList, setUsersList] = useState(user);
   const navigate = useNavigate();
+  const users = window.localStorage.getItem("users");
   window.localStorage.setItem("data", JSON.stringify(categorys));
-  window.localStorage.setItem("users", JSON.stringify(users));
+ 
+  useEffect(() => {
+    if (users) {
+      window.localStorage.setItem("users", users);
+    } else {
+      window.localStorage.setItem("users", JSON.stringify(usersList));
+    }
+  }, [usersList]);
+  
   const handleOnClick = (id) => {
     navigate(`../filmdetail/id/${id}/`);
   };

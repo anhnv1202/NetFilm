@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import user from "../data/user.json";
 import "../style/register.css";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,7 +10,10 @@ const Register = () => {
   const [gender, setGender] = useState("nam");
   const users = window.localStorage.getItem("users");
   const [usersList, setUsersList] = useState([]);
-
+  const navigate = useNavigate();
+  if(localStorage.getItem("id")){
+    navigate('../');
+}
   useEffect(() => {
     if (users.length > 0) {
       setUsersList(JSON.parse(users));
@@ -22,7 +26,7 @@ const Register = () => {
     const isDuplicateEmail = usersList.some((user) => user.email === email);
     if (isDuplicateEmail) {
       swal({
-        title: "Đăng nhập thất bại",
+        title: "Đăng ký thất bại",
         text: "Tài khoản email này đã tồn tại, vui lòng sử dụng emal khác!",
         icon: "error",
         button: "OK",
@@ -34,7 +38,7 @@ const Register = () => {
     if (!regex.test(password)) {
       // Hiển thị thông báo nếu mật khẩu không đủ yêu cầu
       return swal({
-        title: "Đăng nhập",
+        title: "Đăng ký thất bại",
         text: "Mật khẩu phải chứa ít nhất 8 ký tự bao gồm ít nhất 1 ký tự viết hoa, ít nhất 1 ký tự số",
         icon: "error",
         button: "OK",
@@ -58,7 +62,7 @@ const Register = () => {
         "users",
         JSON.stringify([...usersList, newUser])
       );
-      window.location.href = "/login";
+      navigate("./login");
     });
   };
 
