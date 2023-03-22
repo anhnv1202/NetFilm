@@ -1,20 +1,20 @@
 import { Navbar, Nav, Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import React, { useState,useEffect } from "react";
-  
- const NavBar = () => {
-    const navigate = useNavigate();
-    const id=window.localStorage.getItem("id");
-    const users = localStorage.getItem("users");
-    
-    const [usersList]= useState([JSON.parse(users)]);
-    const handleLogout = () => {
-      // Xử lý đăng xuất
-      window.localStorage.removeItem("id");
-      window.location.reload();
-    };
-    console.log(usersList[0]?.find(user => user.id == id));
-    
+import React, { useState, useEffect, useRef } from "react";
+
+const Navigation = (props) => {
+  const navigate = useNavigate();
+  const id = window.localStorage.getItem("id");
+  const users = localStorage.getItem("users");
+  const searchInputRef = useRef(null);
+  const [usersList] = useState([JSON.parse(users)]);
+  const handleLogout = () => {
+    // Xử lý đăng xuất
+    window.localStorage.removeItem("id");
+    window.location.reload();
+  };
+  console.log(usersList[0]?.find((user) => user.id == id));
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -30,22 +30,41 @@ import React, { useState,useEffect } from "react";
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                ref={searchInputRef}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => {
+                  navigate("/");
+                  props.setSearchQuery != null &&
+                    props.setSearchQuery(searchInputRef.current.value);
+                  props.handleSearch != null && props.handleSearch();
+                }}
+              >
+                Search
+              </Button>
             </Form>
           </Nav>
           <Nav>
             {id ? (
               <>
-              <Navbar.Text className="me-2"> Chào mừng: {usersList[0].find(user => user.id == id).fullname} </Navbar.Text>
-              <Nav.Link onClick={handleLogout}>Đăng xuất</Nav.Link>
+                <Navbar.Text className="me-2">
+                  {" "}
+                  Chào mừng:{" "}
+                  {usersList[0].find((user) => user.id == id).fullname}{" "}
+                </Navbar.Text>
+                <Nav.Link onClick={handleLogout}>Đăng xuất</Nav.Link>
               </>
             ) : (
               <>
-                <Nav.Link href="#deets" onClick={() => navigate('/login')}>
+                <Nav.Link href="#deets" onClick={() => navigate("/login")}>
                   Đăng nhập
                 </Nav.Link>
-                <Nav.Link eventKey={2} href="#memes" onClick={() => navigate('/register')}>
+                <Nav.Link
+                  eventKey={2}
+                  href="#memes"
+                  onClick={() => navigate("/register")}
+                >
                   Đăng ký
                 </Nav.Link>
               </>
@@ -57,4 +76,4 @@ import React, { useState,useEffect } from "react";
   );
 };
 
-export default NavBar;
+export default Navigation;

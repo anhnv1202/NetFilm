@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../style/FilmDetails.css";
 import swal from "sweetalert";
 import Button from "react-bootstrap/Button";
+import Navbar from "./Navbar.js";
 const FilmDetail = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -18,6 +19,10 @@ const FilmDetail = (props) => {
     return category.film.find((fi) => fi.id == id) != undefined;
   });
   const film = cate.film.find((fi) => fi.id == id);
+  const [cmuser, setCmuser] = useState(
+    film.comment != undefined &&
+      film.comment.find((cm) => cm.userid == iduser) != undefined
+  );
 
   const listOfCm = film.comment;
   const GetScore = (film) => {
@@ -57,125 +62,162 @@ const FilmDetail = (props) => {
       });
       if (
         film.comment != undefined &&
+        film.comment.find((cm) => cm.userid == iduser) == undefined
+      ) {
+        const newComment = {
+          id: id++,
+          userid: iduser,
+          score: check ? null : sc,
+          comment: cm,
+        };
+        film.comment.unshift(newComment);
+        window.localStorage.setItem("data", JSON.stringify(categorys));
+      } else if (
+        film.comment != undefined &&
         film.comment.find((cm) => cm.userid == iduser) != undefined
-      )
-        check = true;
-      const newComment = {
-        id: id++,
-        userid: iduser,
-        score: check ? null : sc,
-        comment: cm,
-      };
-      film.comment.unshift(newComment);
+      ) {
+        const cmu = film.comment.find((cm) => cm.userid == iduser);
+        const index = film.comment.indexOf(cmu);
+        cmu.score = sc;
+        cmu.comment = cm;
+        film.comment.splice(index, 1, cmu);
+        window.localStorage.setItem("data", JSON.stringify(categorys));
+      }
       // cate.film.comment = [...film];
-      window.localStorage.setItem("data", JSON.stringify(categorys));
-      swal("Đánh giá thành công !!", "", "success").then(() =>
-        setReload(!reaload)
-      );
+      console.log(categorys);
+      swal("Đánh giá thành công !!", "", "success").then(() => setCmuser(true));
     }
   };
   return (
     cate != null && (
-      <div className="content">
-        <div className="fimdetail">
-          <div className="img">
-            <img src={film.img} alt={film.name}></img>
-          </div>
-          <div className="moreInfor">
-            <h1 style={{ marginBottom: "20px" }}>{film.name}</h1>
-            <div style={{ maxHeight: "40vh", overflow: "auto" }}>
-              <h6 style={{ marginBottom: "3px" }}>
-                Thể loại: <span className="fwnomal">{cate.title}</span>
-              </h6>
-              <h6 style={{ marginBottom: "3px" }}>
-                Điểm đánh giá: <span className="fwnomal">{GetScore(film)}</span>
-              </h6>
-              <h6 style={{ marginBottom: "3px" }}>
-                Mô tả: <span className="fwnomal">{film.description}</span>
-              </h6>
+      <>
+        <Navbar />
+        <div className="content">
+          <div className="fimdetail">
+            <div className="img">
+              <img src={film.img} alt={film.name}></img>
             </div>
-            <div className="rateAndScore">
-              {iduser != "" ? (
-                <form
-                  className="hide"
-                  onSubmit={(e) => {
-                    handleOnSubmit(e);
-                  }}
-                >
-                  <h5>Chi tiết đánh giá</h5>
-                  <p>Điểm đánh giá:</p>
-                  <input
-                    type="number"
-                    ref={score}
-                    style={{ padding: "0px 5px" }}
-                    defaultValue={
-                      film.comment != undefined &&
-                      film.comment != null &&
-                      film.comment.find((cm) => cm.userid == iduser) !=
-                        undefined
-                        ? film.comment.find((cm) => cm.userid == iduser).score
-                        : null
-                    }
-                  />
-                  <p>Bình Luận</p>
-                  <textarea
-                    type="text"
-                    rows={2}
-                    ref={comment}
-                    placeholder="Viết bình luận ..."
-                  ></textarea>
-                  <Button type="submit" className="btnbut">
+            <div className="moreInfor">
+              <h1 style={{ marginBottom: "20px" }}>{film.name}</h1>
+              <div style={{ maxHeight: "40vh", overflow: "auto" }}>
+                <h6 style={{ marginBottom: "3px" }}>
+                  Thể loại: <span className="fwnomal">{cate.title}</span>
+                </h6>
+                <h6 style={{ marginBottom: "3px" }}>
+                  Điểm đánh giá:{" "}
+                  <span className="fwnomal">{GetScore(film)}</span>
+                </h6>
+                <h6 style={{ marginBottom: "3px" }}>
+                  Mô tả: <span className="fwnomal">{film.description}</span>
+                </h6>
+              </div>
+              <div className="rateAndScore">
+                {iduser == null ? (
+                  <Button
+                    onClick={() => {
+                      swal(
+                        "Bạn chưa đăng nhập ...",
+                        "Đăng nhập ngay !!!",
+                        "error"
+                      ).then(() => navigate("../login"));
+                    }}
+                    className="btnbut"
+                  >
                     Đánh giá
                   </Button>
-                </form>
-              ) : (
-                <Button
-                  onClick={() => {
-                    swal(
-                      "Bạn chưa đăng nhập ...",
-                      "Đăng nhập ngay !!!",
-                      "error"
-                    ).then(() => navigate("../login"));
-                  }}
-                  className="btnbut"
-                >
-                  Đánh giá
-                </Button>
-              )}
-
-              <div className="comment">
-                <h4>Bình Luận:</h4>
-                {listOfCm == null || listOfCm.length == 0 ? (
-                  <h6>No comment</h6>
                 ) : (
-                  listOfCm.map((comment) => {
-                    return (
-                      <div key={comment.id}>
-                        <h6>
-                          {listuser != null &&
-                            listuser.find((u) => {
-                              return u.id == comment.userid;
-                            }).fullname}
-                          {listuser != null &&
-                          listuser.find((u) => {
-                            return u.id == comment.userid && u.id == iduser;
-                          }) != undefined
-                            ? " (You) "
-                            : ""}
-                          :
-                          <span className="comment_detail">
-                            {comment.comment}
-                          </span>
-                        </h6>
-                      </div>
-                    );
-                  })
+                  <>
+                    {!cmuser && (
+                      <form
+                        className="hide"
+                        onSubmit={(e) => {
+                          handleOnSubmit(e);
+                        }}
+                      >
+                        <h5>Chi tiết đánh giá</h5>
+                        <p>Điểm đánh giá:</p>
+                        <input
+                          type="number"
+                          ref={score}
+                          style={{ padding: "0px 5px" }}
+                          defaultValue={
+                            film.comment != undefined &&
+                            film.comment != null &&
+                            film.comment.find((cm) => cm.userid == iduser) !=
+                              undefined
+                              ? film.comment.find((cm) => cm.userid == iduser)
+                                  .score
+                              : null
+                          }
+                        />
+                        <p>Bình Luận</p>
+                        <textarea
+                          type="text"
+                          rows={2}
+                          ref={comment}
+                          placeholder="Viết bình luận ..."
+                          defaultValue={
+                            film.comment != undefined &&
+                            film.comment != null &&
+                            film.comment.find((cm) => cm.userid == iduser) !=
+                              undefined
+                              ? film.comment.find((cm) => cm.userid == iduser)
+                                  .comment
+                              : null
+                          }
+                        ></textarea>
+                        <Button type="submit" className="btnbut">
+                          Đánh giá
+                        </Button>
+                      </form>
+                    )}
+
+                    {cmuser && (
+                      <Button
+                        type="button"
+                        className="btnbut"
+                        onClick={() => setCmuser(false)}
+                      >
+                        Chỉnh sửa đánh giá
+                      </Button>
+                    )}
+                  </>
                 )}
+
+                <div className="comment">
+                  <h4>Bình Luận:</h4>
+                  {listOfCm == null || listOfCm.length == 0 ? (
+                    <h6>No comment</h6>
+                  ) : (
+                    listOfCm.map((comment) => {
+                      return (
+                        <div key={comment.id}>
+                          <h6>
+                            {listuser != null &&
+                              listuser.find((u) => {
+                                return u.id == comment.userid;
+                              }).fullname}
+                            {listuser != null &&
+                            listuser.find((u) => {
+                              return u.id == comment.userid && u.id == iduser;
+                            }) != undefined
+                              ? " (You) "
+                              : ""}
+                            :
+                            <span className="comment_detail">
+                              {comment.comment}
+                            </span>
+                          </h6>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   );
 };
