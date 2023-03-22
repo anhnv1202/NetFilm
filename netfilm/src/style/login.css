@@ -1,0 +1,9 @@
+.login-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    width: 45%;
+  }
+  .forgot{
+    float: right;
+  }
