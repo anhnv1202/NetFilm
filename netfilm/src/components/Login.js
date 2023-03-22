@@ -44,21 +44,20 @@ const Login = () => {
         }
     };
     const handleFacebook = (data) => {
-        console.log(data)
         const currentUser = usersList.find(user => user.id == data.id);
         if (currentUser) {
             localStorage.setItem("id", currentUser.id);
             navigate("../");
         } else {
             const newUser = {
-                id: data.id,
+                id: parseInt(data.id),
                 email: data.email,
-                fullName: data.name
+                fullname: data.name
             };
             window.localStorage.setItem("users",
                 JSON.stringify([...usersList, newUser])
             );
-            localStorage.setItem("id", data.id);
+            localStorage.setItem("id", parseInt(data.id));
             navigate("../");
         }
     }

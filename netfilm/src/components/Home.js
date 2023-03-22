@@ -5,6 +5,7 @@ import data from "../data/alldata.json";
 import user from "../data/user.json";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Button, Form, Container } from "react-bootstrap";
+import NavBar from "./Navbar";
 
 const Home = () => {
   const [categorys, setCategorys] = useState(data);
@@ -65,7 +66,7 @@ const Home = () => {
   const searchInputRef = useRef(null);
   return (
     <div className="container-fluid">
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">Phim Hay</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -99,7 +100,8 @@ const Home = () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar> */}
+      <NavBar/>
       <div className="row">
         <div className="col-2">
           <h2>Thể loại</h2>
