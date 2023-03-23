@@ -1,31 +1,31 @@
 import "../assest/home.css";
 
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import data from "../data/alldata.json";
 import user from "../data/user.json";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Navbar, Nav, Button, Form, Container } from "react-bootstrap";
-import NavBar from "./Navbar";
+import Navigation from "./Navbar";
 
 const Home = () => {
   const [categorys, setCategorys] = useState(data);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
-  const [filteredFilms, setFilteredFilms] = useState([]);
-  const [searchClicked, setSearchClicked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFilm, setSelectedFilm] = useState(null);
-  window.localStorage.setItem("data", JSON.stringify(categorys));
-
   const [usersList, setUsersList] = useState(user);
+
   const users = window.localStorage.getItem("users");
+  const dt = window.localStorage.getItem("data");
   useEffect(() => {
     if (users) {
       window.localStorage.setItem("users", users);
+      window.localStorage.setItem("data", dt);
     } else {
       window.localStorage.setItem("users", JSON.stringify(usersList));
+      window.localStorage.setItem("data", JSON.stringify(categorys));
     }
   }, [usersList]);
+
   const handleOnClick = (id) => {
     navigate(`../filmdetail/id/${id}/`);
   };
@@ -57,51 +57,15 @@ const Home = () => {
         ),
       []
     );
-  
-    setFilteredFilms(filtered);
-    setSearchClicked(true);
   };
 
-  // add ref to search input
-  const searchInputRef = useRef(null);
   return (
     <div className="container-fluid">
-      {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="/">Phim Hay</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/">Trang chủ</Nav.Link>
-
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                  ref={searchInputRef}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Button variant="outline-success" onClick={handleSearch}>
-                  Search
-                </Button>
-              </Form>
-            </Nav>
-            <Nav>
-              <Nav.Link href="#deets">Đăng nhập</Nav.Link>
-              <Nav.Link
-                eventKey={2}
-                href="#memes"
-                onClick={() => navigate("/register")}
-              >
-                Đăng kí
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar> */}
-      <NavBar/>
+      <Navigation
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handleSearch={handleSearch}
+      />
       <div className="row">
         <div className="col-2">
           <h2>Thể loại</h2>
@@ -125,7 +89,6 @@ const Home = () => {
         </div>
         <div className="col-8">
           <div className="row" style={{ marginTop: "30px," }}>
-            
             {categorys != null &&
               categorys.map((category) => {
                 return (
@@ -162,8 +125,9 @@ const Home = () => {
                           ></img>
                           <h5
                             onClick={() => {
-                              setSelectedFilm(film);
+                              handleOnClick(film.id);
                             }}
+                            style={{ color: "aqua", cursor: "pointer" }}
                           >
                             {film.name}
                           </h5>
@@ -176,12 +140,6 @@ const Home = () => {
                               handleOnClick(film.id);
                             }}
                           >
-                            {selectedCategory != null &&
-                              category.film.filter((film) =>
-                                film.name
-                                  .toLowerCase()
-                                  .includes(searchQuery.toLowerCase())
-                              ).length === 0 && <p>No films found</p>}
                             Đánh giá
                           </Button>
                         </div>
@@ -190,25 +148,6 @@ const Home = () => {
                 );
               })}
           </div>
-        </div>
-
-        <div className="col-8">
-          {selectedFilm && (
-            <div>
-              <h2>{selectedFilm.name}</h2>
-              <p>Năm: {selectedFilm.year}</p>
-              <p>Loại: {selectedCategory.title}</p>
-              <p>Điểm: {GetScore(selectedFilm)}</p>
-              <p>Mô tả: {selectedFilm.description}</p>
-              <Button
-                onClick={() => {
-                  handleOnClick(selectedFilm.id);
-                }}
-              >
-                Đánh giá
-              </Button>
-            </div>
-          )}
         </div>
       </div>
     </div>

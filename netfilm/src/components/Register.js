@@ -3,6 +3,7 @@ import swal from "sweetalert";
 import user from "../data/user.json";
 import "../style/register.css";
 import { useNavigate } from "react-router-dom";
+import Navigation from "./Navbar.js";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,9 +12,9 @@ const Register = () => {
   const users = window.localStorage.getItem("users");
   const [usersList, setUsersList] = useState([]);
   const navigate = useNavigate();
-  if(localStorage.getItem("id")){
-    navigate('../');
-}
+  if (localStorage.getItem("id")) {
+    navigate("../");
+  }
   useEffect(() => {
     if (users.length > 0) {
       setUsersList(JSON.parse(users));
@@ -67,68 +68,71 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
-      <form onSubmit={handleSubmit} className="register-form">
-        <h1>Đăng ký tài khoản</h1>
+    <>
+      <Navigation />
+      <div className="register">
+        <form onSubmit={handleSubmit} className="register-form">
+          <h1>Đăng ký tài khoản</h1>
 
-        <input
-          type="email"
-          value={email}
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <input
+            type="email"
+            value={email}
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          value={password}
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <input
-          type="text"
-          value={name}
-          placeholder="name"
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <label id="gender">
-          Giới tính
-          <label htmlFor="male">
-            <input
-              type="radio"
-              id="male"
-              name="gender"
-              value="nam"
-              checked={gender === "nam"}
-              onChange={() => setGender("nam")}
-              required
-            />
-            Nam
+          <input
+            type="text"
+            value={name}
+            placeholder="name"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <label id="gender">
+            Giới tính
+            <label htmlFor="male">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="nam"
+                checked={gender === "nam"}
+                onChange={() => setGender("nam")}
+                required
+              />
+              Nam
+            </label>
+            <label htmlFor="female">
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="nữ"
+                checked={gender === "nữ"}
+                onChange={() => setGender("nữ")}
+                required
+              />
+              Nữ
+            </label>
           </label>
-          <label htmlFor="female">
-            <input
-              type="radio"
-              id="female"
-              name="gender"
-              value="nữ"
-              checked={gender === "nữ"}
-              onChange={() => setGender("nữ")}
-              required
-            />
-            Nữ
-          </label>
-        </label>
-        <p>
-          Nếu tài khoản đã tồn tại? <a href="/login">Đăng nhập ngay</a>
-        </p>
-        <button type="submit" className="submit-btn">
-          Đăng ký
-        </button>
-      </form>
-    </div>
+          <p>
+            Nếu tài khoản đã tồn tại? <a href="/login">Đăng nhập ngay</a>
+          </p>
+          <button type="submit" className="submit-btn">
+            Đăng ký
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 export default Register;
