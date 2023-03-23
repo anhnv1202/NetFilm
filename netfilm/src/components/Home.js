@@ -1,6 +1,5 @@
 import "../assest/home.css";
-
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import data from "../data/alldata.json";
 import user from "../data/user.json";
 import { useNavigate, useParams } from "react-router-dom";
