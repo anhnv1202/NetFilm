@@ -11,6 +11,8 @@ const Register = () => {
   const [gender, setGender] = useState("nam");
   const users = window.localStorage.getItem("users");
   const [usersList, setUsersList] = useState([]);
+  const [rePassword, setRePassword] = useState("");
+
   const navigate = useNavigate();
   if (localStorage.getItem("id")) {
     navigate("../");
@@ -34,7 +36,14 @@ const Register = () => {
       });
       return;
     }
-
+    if(password != rePassword)  {
+      return swal({
+        title: "Đăng ký thất bại",
+        text: "Mật khẩu không khớp với",
+        icon: "error",
+        button: "OK",
+      });
+    }
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
     if (!regex.test(password)) {
       // Hiển thị thông báo nếu mật khẩu không đủ yêu cầu
@@ -56,14 +65,14 @@ const Register = () => {
         id: Date.now(),
         email: email,
         password: password,
-        fullName: name,
+        fullname: name,
         gender: gender,
       };
       window.localStorage.setItem(
         "users",
         JSON.stringify([...usersList, newUser])
       );
-      navigate("./login");
+      navigate("../login");
     });
   };
 
@@ -89,6 +98,13 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <input
+          type="password"
+          value={rePassword}
+          placeholder="Enter Password Again"
+          onChange={(e) => setRePassword(e.target.value)}
+          required
+        />
 
           <input
             type="text"

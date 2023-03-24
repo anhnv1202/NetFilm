@@ -5,7 +5,7 @@ import user from "../data/user.json";
 import { useNavigate, useParams } from "react-router-dom";
 import { Navbar, Nav, Button, Form, Container } from "react-bootstrap";
 import Navigation from "./Navbar";
-
+import Footer from "./Footer.js";
 const Home = () => {
   const [categorys, setCategorys] = useState(data);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -126,7 +126,7 @@ const Home = () => {
                             onClick={() => {
                               handleOnClick(film.id);
                             }}
-                            style={{ color: "aqua", cursor: "pointer" }}
+                            style={{ color: "black", cursor: "pointer" }}
                           >
                             {film.name}
                           </h5>
@@ -149,6 +149,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -6,12 +6,15 @@ import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import { useNavigate } from "react-router-dom";
 import Navigation from "./Navbar.js";
+import Footer from "./Footer.js";
+import jwt from 'jsonwebtoken';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const users = window.localStorage.getItem("users");
   const navigate = useNavigate();
   const [usersList, setUsersList] = useState([]);
+  const [remember, setRemember] = useState(false);
   console.log(usersList);
   if (localStorage.getItem("id")) {
     navigate("../");
@@ -26,8 +29,16 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     const userValid = usersList.find(
-      (user) => user.email == email && user.password == password
-    );
+      (user) => user.email == email )
+    ;
+    if (remember) {
+      const token = jwt.sign(password, 'secretkey');
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', token); // Lưu mật khẩu đã được hash
+    } else {
+      localStorage.removeItem('email');
+      localStorage.removeItem('password');
+    }
     if (userValid) {
       swal({
         title: "Đăng nhập thành công",
@@ -46,6 +57,14 @@ const Login = () => {
       });
     }
   };
+  useEffect(() => {
+    const email = localStorage.getItem('email') || '';
+    const password = localStorage.getItem('password') || '';
+
+    setEmail(email);
+    setPassword(password);
+    setRemember(Boolean(email && password));
+  }, [])
   const handleFacebook = (data) => {
     const currentUser = usersList.find((user) => user.id == data.id);
     if (currentUser) {
@@ -85,6 +104,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div id="remember">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={() => setRemember(!remember)}
+            />
+            <label for="remember">Nhớ mật khẩu</label>
+          </div>
 
           <p>
             Nếu chưa có tài khoản? <a href="/register">Đăng ký ngay</a>
@@ -105,6 +132,7 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <Footer />
     </>
   );
 };

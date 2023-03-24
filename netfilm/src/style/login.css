@@ -16,7 +16,13 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     background-color: #96D6FF;
   }
-  
+  #remember{
+    margin-bottom: 15px;
+    color: chartreuse;
+  }
+  #remember:hover{
+    color: darksalmon;
+  }
   .login h1 {
     color: white;
     margin-top: 0;

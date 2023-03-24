@@ -4,6 +4,7 @@ import "../style/FilmDetails.css";
 import swal from "sweetalert";
 import Button from "react-bootstrap/Button";
 import Navbar from "./Navbar.js";
+
 const FilmDetail = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();

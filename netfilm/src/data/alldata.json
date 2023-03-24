@@ -39,7 +39,7 @@
     {"id":2,
     "title":"Kinh dị",
     "film":[{
-        "id":3,
+        "id":5,
         "name":"Đoạt Hồn",
         "year":2023,
         "description":"Đoạt Hồn kể về bé Ái ",
@@ -54,13 +54,13 @@
     {"id":3,
     "title":" Gia Đình - Học Đường",
     "film":[{
-        "id":1,
+        "id":6,
         "name":"Hải Trình Của JESSICA",
         "year":2022,
         "description":"Hải Trình Của Jessica",    "img":"https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.mpapis.xyz%2Fposter%2Fhai-trinh-cua-jessica-10960.jpg%3F1676107007",
         "comment":[]
     },{
-        "id":2,
+        "id":7,
         "name":"Ngôi Trường Xác Sống",
         "year":2022,
         "description":"Ngôi Trường Xác Sống kể ",
